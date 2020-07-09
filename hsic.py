@@ -34,6 +34,13 @@ def gaussian_grammat(x, sigma=None):
     if sigma is None:
         mdist = numpy.median(xnorm[xnorm!= 0])
         sigma = numpy.sqrt(mdist*0.5)
+
+
+   # --- If bandwidth is 0, add machine epsilon to it
+    if sigma==0:
+        eps = 7./3 - 4./3 - 1
+        sigma += eps
+
     KX = - 0.5 * xnorm / sigma / sigma
     numpy.exp(KX, KX)
     return KX
